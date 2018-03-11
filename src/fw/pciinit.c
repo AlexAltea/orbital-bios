@@ -1153,7 +1153,11 @@ pci_setup(void)
     pci_probe_devices();
 
     pcimem_start = RamSize;
-    pci_bios_init_platform();
+
+    // NOTE:
+    // Prevent any Q35-related initialization, to keep
+    // the [0x80000000, 0xBFFFFFFF] range usable.
+    // pci_bios_init_platform();
 
     dprintf(1, "=== PCI new allocation pass #1 ===\n");
     struct pci_bus *busses = malloc_tmp(sizeof(*busses) * (MaxPCIBus + 1));
