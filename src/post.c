@@ -209,7 +209,10 @@ maininit(void)
     // Run vga option rom
     vgarom_setup();
     sercon_setup();
-    enable_vga_console();
+
+    // The PS4 kernel does not use VGA text mode and our current implementation
+    // of the PS4 GPU, i.e. Liverpool GC, will cause this function to get stuck.
+    //enable_vga_console();
 
     // Do hardware initialization (if running synchronously)
     if (!threads_during_optionroms()) {
